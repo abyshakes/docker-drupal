@@ -1,0 +1,24 @@
+# PHP Web Server
+web:
+  build: ./php56-apache
+  ports:
+    - "80:80"
+  volumes:
+    - ..:/var/www/html
+  links:
+    - database:database
+  working_dir: /var/www/html
+  restart: always
+
+# MySQL Server
+database:
+  image: mariadb:10
+  environment:
+    MYSQL_USER: drupal
+    MYSQL_PASSWORD: drupal
+    MYSQL_DATABASE: drupal
+    MYSQL_ROOT_PASSWORD: ''
+    MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+  ports:
+    - "3306:3306"
+  restart: always
